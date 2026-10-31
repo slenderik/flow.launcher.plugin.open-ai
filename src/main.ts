@@ -48,7 +48,7 @@ const settingsSchema = z.object({
 	customUrl: z.string().optional(),
 });
 
-const flow = new Flow<Events>("assets/npm.png");
+const flow = new Flow<Events>("assets/hugeicons_ai-search.png");
 
 function getErrorMessage(error: unknown): string {
 	return error instanceof Error ? error.message : String(error);

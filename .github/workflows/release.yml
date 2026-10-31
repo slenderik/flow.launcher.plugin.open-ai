@@ -1,38 +1,63 @@
-name: Release
+name: Publish Release
 
 on:
     workflow_dispatch:
     push:
-        branches: [master]
+        tags:
+            - "v*"
+
+permissions:
+    contents: write
 
 jobs:
     publish:
         runs-on: ubuntu-latest
-        permissions:
-            contents: write
-
         steps:
             - uses: actions/checkout@v4
-            - name: Set up Node.Js
+
+            - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
-                node-version: '17.3.0'
-            - name: get version
-              id: version
-              uses: notiz-dev/github-action-json-property@release
-              with:
-                  path: "plugin.json"
-                  prop_path: "Version"
-            - run: echo ${{steps.version.outputs.prop}}
-            - name: Install & Package
+                  node-version: "20"
+
+            - name: Install dependencies and build
               run: |
-                npm install
-                npm run build
-                zip -r NPMSearch-${{steps.version.outputs.prop}}.zip . -x '*.git*'
-            - name: Publish
+                  npm ci
+                  npm run build
+
+            - name: Create plugin package
+              run: |
+                  mkdir -p package/Ask-AI
+                  cp plugin.json package/Ask-AI/
+                  cp SettingsTemplate.yaml package/Ask-AI/
+                  cp package.json package-lock.json package/Ask-AI/
+                  cp -R assets dist package/Ask-AI/
+                  npm ci --prefix package/Ask-AI --omit=dev --ignore-scripts
+                  mkdir -p dist
+                  cd package
+                  zip -r ../dist/Ask-AI.zip Ask-AI
+                  test -s ../dist/Ask-AI.zip
+                  unzip -Z1 ../dist/Ask-AI.zip | grep -Fxq "Ask-AI/plugin.json"
+                  unzip -Z1 ../dist/Ask-AI.zip | grep -Fxq "Ask-AI/dist/main.js"
+                  unzip -Z1 ../dist/Ask-AI.zip | grep -Fxq "Ask-AI/node_modules/open/package.json"
+
+            - name: Get release version
+              id: version
+              run: |
+                  if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+                    version="${GITHUB_REF_NAME#v}"
+                  else
+                    version="$(node -p "require('./plugin.json').Version")"
+                  fi
+                  echo "version=$version" >> "$GITHUB_OUTPUT"
+
+            - name: Create Release
               uses: softprops/action-gh-release@v2
               with:
-                  files: "NPMSearch-${{steps.version.outputs.prop}}.zip"
-                  tag_name: "v${{steps.version.outputs.prop}}"
+                  files: dist/Ask-AI.zip
+                  tag_name: v${{ steps.version.outputs.version }}
+                  name: Release ${{ steps.version.outputs.version }}
+                  draft: false
+                  prerelease: false
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
