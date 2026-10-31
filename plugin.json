@@ -7,6 +7,6 @@
   "Version": "0.0.2",
   "Language": "TypeScript",
   "ExecuteFileName": "./dist/main.js",
-  "Website": "",
-  "IcoPath": "./assets/hugeicons_ai-search.png"
+  "Website": "https://github.com/slenderik/flow.launcher.plugin.open-ai",
+  "IcoPath": "https://cdn.jsdelivr.net/gh/slenderik/flow.launcher.plugin.open-ai/blob/master/assets/hugeicons_ai-search.png"
 }

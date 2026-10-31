@@ -8,11 +8,13 @@ on:
 jobs:
     publish:
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Set up Node.Js
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v4
               with:
                 node-version: '17.3.0'
             - name: get version
@@ -28,7 +30,7 @@ jobs:
                 npm run build
                 zip -r NPMSearch-${{steps.version.outputs.prop}}.zip . -x '*.git*'
             - name: Publish
-              uses: softprops/action-gh-release@v1
+              uses: softprops/action-gh-release@v2
               with:
                   files: "NPMSearch-${{steps.version.outputs.prop}}.zip"
                   tag_name: "v${{steps.version.outputs.prop}}"
