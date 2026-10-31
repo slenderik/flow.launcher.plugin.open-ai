@@ -1,12 +1,28 @@
-# Flow Launcher Plugin Template for Node
+# Ask AI for Flow Launcher
 
-This repository contains a template for creating a [Flow Launcher](https://www.flowlauncher.com/) plugin using the [Node.js](https://nodejs.org/en/) runtime.
+Enter `ai` followed by a prompt to open it in your selected AI provider. For example:
+
+```text
+ai объясни квантовую физику простыми словами
+```
+
+The prompt is URL-encoded and inserted where `{query}` appears in the provider URL.
+
+## Settings
+
+Open Flow Launcher's plugin settings for **Ask AI** to choose a provider and edit its URL template. DeepSeek is selected by default. Available providers are DeepSeek, ChatGPT, Gemini, Claude, Perplexity, and Custom.
+
+Use `{query}` in a URL template to mark where the prompt should be inserted. For example:
+
+```text
+https://chat.deepseek.com/?q={query}
+```
 
 ## Development
 
-To be able to test this easily, you need to create a symlink between this directory and the plugin directory from Flow Launcher. This can be done by searching `Flow Launcher UserData Folder` in the launcher and pressing enter. The plugins are found in the `Plugins` folder.
+To test this plugin, create a symlink between this directory and the plugin directory from Flow Launcher. Search for `Flow Launcher UserData Folder` in the launcher and open the `Plugins` folder.
 
-You can create a symlink by opening command prompt (CMD) in Windows and typing:
+Create a symlink by opening Command Prompt (CMD) and typing:
 
 ```CMD
 mklink /J [flow-launcher-plugin-folder]/[folder-name] [project-root]

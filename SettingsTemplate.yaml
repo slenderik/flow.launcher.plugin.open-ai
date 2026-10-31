@@ -1,0 +1,47 @@
+body:
+  - type: textBlock
+    attributes:
+      description: Choose an AI provider and edit its URL template. Keep {query} where the prompt should be inserted.
+  - type: dropdown
+    attributes:
+      name: provider
+      label: AI provider
+      description: Provider to open when you run an ai query.
+      defaultValue: DeepSeek
+      options:
+        - DeepSeek
+        - ChatGPT
+        - Gemini
+        - Claude
+        - Perplexity
+        - Custom
+  - type: input
+    attributes:
+      name: deepseekUrl
+      label: DeepSeek URL
+      defaultValue: https://chat.deepseek.com/?q={query}
+  - type: input
+    attributes:
+      name: chatGptUrl
+      label: ChatGPT URL
+      defaultValue: https://chatgpt.com/?q={query}
+  - type: input
+    attributes:
+      name: geminiUrl
+      label: Gemini URL
+      defaultValue: https://gemini.google.com/app?q={query}
+  - type: input
+    attributes:
+      name: claudeUrl
+      label: Claude URL
+      defaultValue: https://claude.ai/new?q={query}
+  - type: input
+    attributes:
+      name: perplexityUrl
+      label: Perplexity URL
+      defaultValue: https://www.perplexity.ai/search?q={query}
+  - type: input
+    attributes:
+      name: customUrl
+      label: Custom provider URL
+      defaultValue: https://example.com/?q={query}

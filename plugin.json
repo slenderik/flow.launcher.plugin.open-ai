@@ -1,12 +1,12 @@
 {
-  "ID": "890a6a95-5d36-4fab-bce1-b4c3f1239098",
-  "ActionKeyword": "npm",
-  "Name": "Search NPM",
-  "Description": "Search NPM packages",
-  "Author": "Joël Kuijper",
+  "ID": "99165f5f-abbb-4c1d-8124-41b086bb043a",
+  "ActionKeyword": "ai",
+  "Name": "Open AI",
+  "Description": "Open an AI provider with your prompt",
+  "Author": "slenderik",
   "Version": "0.0.2",
   "Language": "TypeScript",
   "ExecuteFileName": "./dist/main.js",
-  "Website": "https://github.com/Joehoel/flow-launcher-plugin-template-node",
-  "IcoPath": "./assets/npm.png"
+  "Website": "",
+  "IcoPath": "./assets/hugeicons_ai-search.png"
 }
